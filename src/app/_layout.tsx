@@ -1,7 +1,18 @@
-import { Slot, Stack} from "expo-router";
+import { Slot, Stack } from "expo-router";
+import { ThemeProvider, DarkTheme } from "@react-navigation/native";
 
-export default function RootLayout(){
-    return (
-        <Slot />
-    )
+const myTheme = {
+  ...DarkTheme,
+  colors: {
+    ...DarkTheme.colors,
+    primary: 'white',
+  },
+};
+
+export default function RootLayout() {
+  return (
+    <ThemeProvider value={myTheme}>
+      <Slot />
+    </ThemeProvider>
+  );
 }
