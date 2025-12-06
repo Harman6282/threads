@@ -21,6 +21,15 @@ export default function TabsLayout() {
           ),
         }}
       />
+       <Tabs.Screen
+        name="new"
+        options={{
+          title: "New",
+          tabBarIcon: ({ size, color }) => (
+            <Feather name="plus" size={size} color={color} />
+          ),
+        }}
+      />
       <Tabs.Screen
         name="notification"
         options={{
