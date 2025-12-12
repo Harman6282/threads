@@ -4,9 +4,11 @@ import {
   TextInput,
   TouchableOpacity,
   Pressable,
+  Alert,
 } from "react-native";
 import { Link } from "expo-router";
 import { useState } from "react";
+import { supabase } from "@/lib/supabase";
 
 export default function LoginScreen() {
   const [email, setEmail] = useState("");
@@ -15,17 +17,25 @@ export default function LoginScreen() {
 
   const handleLogin = async () => {
     if (!email || !password) {
-      // TODO: Add proper error handling
+      Alert.alert("Please enter an email and password");
       return;
     }
 
     try {
       setIsLoading(true);
-      // TODO: Implement actual login logic here
-      console.log("Login attempt with:", { email });
+
+      const { error, data } = await supabase.auth.signInWithPassword({
+        email: email,
+        password: password,
+      });
+
+      if (error) Alert.alert(error.message);
+      Alert.alert("logged in successfully");
+      setIsLoading(false);
+      
     } catch (error) {
       console.error("Login error:", error);
-      // TODO: Add proper error handling
+      Alert.alert("Login error: ", error.message);
     } finally {
       setIsLoading(false);
     }

@@ -2,7 +2,7 @@ import { Slot, Stack } from "expo-router";
 import { ThemeProvider, DarkTheme } from "@react-navigation/native";
 // @ts-ignore
 import "../../global.css";
-import { StatusBar } from "react-native";
+import { AuthProvider } from "@/providers/AuthProvider";
 
 const myTheme = {
   ...DarkTheme,
@@ -16,8 +16,9 @@ const myTheme = {
 export default function RootLayout() {
   return (
     <ThemeProvider value={myTheme}>
-      <StatusBar barStyle="light-content" />
-      <Slot />
+      <AuthProvider>
+        <Slot />
+      </AuthProvider>
     </ThemeProvider>
   );
 }
