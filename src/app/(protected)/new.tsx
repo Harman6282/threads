@@ -25,6 +25,7 @@ export default function NewScreen() {
           className="text-white text-lg"
           multiline
           numberOfLines={4}
+          secureTextEntry
         />
 
         <View className="mt-auto">
