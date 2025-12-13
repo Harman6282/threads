@@ -1,12 +1,29 @@
 import PostListItem from "@/components/PostListItem";
 import { dummyPosts } from "@/dummyData";
+import { supabase } from "@/lib/supabase";
+import { Post } from "@/types";
 import { Link } from "expo-router";
+import { useEffect, useState } from "react";
 import { FlatList } from "react-native";
 
 export default function App() {
+  const [posts, setPosts] = useState<Post[]>([]);
+
+  useEffect(() => {
+    const fetchPosts = async () => {
+      const { data, error } = await supabase.from("posts").select("*, user:profiles(*)");
+      if (error) {
+        console.error(error);
+      }
+      setPosts(data as Post[]);
+    };
+
+    fetchPosts()
+  }, []);
+
   return (
     <FlatList
-      data={dummyPosts}
+      data={posts}
       renderItem={({ item }) => <PostListItem post={item} />}
       ListHeaderComponent={() => (
         <>
